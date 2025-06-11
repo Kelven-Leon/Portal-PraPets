@@ -1,0 +1,107 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f9fff9;
+}
+
+/* Seção com vídeo de fundo */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* altura total da tela */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+
+.hero video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* garante que o vídeo cubra a tela proporcionalmente */
+  z-index: -1;
+  filter: brightness(60%); /* escurece o vídeo para destacar o texto */
+}
+
+.info-pet {
+  color: white;
+  z-index: 1;
+  max-width: 90%;
+  padding: 20px;
+}
+
+.info-pet h1 {
+  font-size: 60px;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.sub-titulo {
+  font-size: 35px;
+  margin-bottom: 10px;
+  color:white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.botoes-hero button {
+  padding: 12px 24px;
+  font-size: 1.5em;
+  background-color: #19e776;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.botoes-hero .cadastro {
+  background-color: white;
+    color: black;
+}
+
+.botoes-hero button:hover {
+  background-color:#fff;
+  color: #f3620e;
+  border: 1px solid #f3620e;
+}
+
+.texto-rodape {
+  color: white;
+  font-size: 1.6em;
+  margin-top: 15px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* opcional: melhora a leitura */
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #333;
+  padding: 10px 0;
+  min-width: 200px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  z-index: 1000;
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 10px 20px;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.dropdown-menu li a:hover {
+  background: #555;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+

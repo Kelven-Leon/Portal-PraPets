@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contato | PraPets</title>
+  <link rel="stylesheet" href="contato.css" />
+  <script>
+    function enviarFormulario(event) {
+      event.preventDefault();
+      document.getElementById("formulario-contato").reset();
+      alert("Obrigado por entrar em contato! Responderemos em breve.");
+    }
+  </script>
+</head>
+<body>
+
+  <header id="header">
+  <div class="header-container">
+    <img src="img/logo.png" alt="Logo" class="logo">
+    <span class="titulo">PraPets</span>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="./index.html">Início</a></li>
+
+        <li class="dropdown">
+          <a href="#">Serviços</a>
+          <ul class="dropdown-menu">
+            <li><a href="./banho-tosa.html">Banho e Tosa</a></li>
+            <li><a href="./vacinas.html">Vacinas</a></li>
+            <li><a href="./consultas.html">Consultas</a></li>
+            <li><a href="./hospitais.html">Veterinários Próximos</a></li>
+            <li><a href="./servicos-agendados.html">Histórico de Agendamentos</a></li>
+            <li><a href="./dicas.html">Guia de Cuidados Essenciais</a></li>
+          </ul>
+        </li>
+
+        <li><a href="./contato.html">Contato</a></li>
+        <li><a href="./pets.html">Pets</a></li>
+        <li><a href="./inicio.html">Sair</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+  <div class="header">
+    <h1>Contato</h1>
+  </div>
+
+
+  <main class="contato">
+    <div class="container contato-grid">
+
+      <!-- Informações de contato -->
+      <section class="contato-info">
+        <h2>Fale Conosco</h2>
+        <p>Entre em contato para dúvidas, sugestões ou suporte.</p>
+        <ul class="info-list">
+          <li><strong>Email:</strong> <a href="mailto:contato@prapets.com.br">contato@prapets.com.br</a></li>
+          <li><strong>Telefone:</strong> (11) 98765-4321</li>
+          <li><strong>Endereço:</strong> Rua vereador Francisco de Paula Santana,160, Recife,PE</li>
+          <li><strong>Horário de Atendimento:</strong><br>Seg a Sex - 08h às 18h<br>Sábado - 09h às 13h</li>
+        </ul>
+
+        <!-- Redes sociais -->
+        <div class="redes-sociais">
+          <h3>Siga-nos</h3>
+          <a href="#" title="Instagram"><img src="img/instagram.svg" alt="Instagram" /></a>
+          <a href="#" title="Facebook"><img src="img/facebook.svg" alt="Facebook" /></a>
+          <a href="#" title="WhatsApp"><img src="img/whatsapp.svg" alt="WhatsApp" /></a>
+        </div>
+      </section>
+
+      <!-- Formulário -->
+      <section class="contato-form">
+        <h2>Envie sua mensagem</h2>
+        <form id="formulario-contato" onsubmit="enviarFormulario(event)">
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" name="nome" required placeholder="Seu nome completo" />
+
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" required placeholder="exemplo@dominio.com" />
+
+          <label for="assunto">Assunto</label>
+          <input type="text" id="assunto" name="assunto" required placeholder="Ex: Dúvida sobre adoção" />
+
+          <label for="mensagem">Mensagem</label>
+          <textarea id="mensagem" name="mensagem" rows="6" required placeholder="Escreva sua mensagem aqui..."></textarea>
+
+          <button type="submit">Enviar Mensagem</button>
+        </form>
+      </section>
+
+    </div>
+
+    <!-- Mapa -->
+    <section class="mapa container">
+      <h2>Como Chegar</h2>
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.636750192222!2d-46.656571!3d-23.580557!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDM0JzUwLjAiUyA0NsKwMzknMjQuMCJX!5e0!3m2!1spt-BR!2sbr!4v1617115804130!5m2!1spt-BR!2sbr" 
+        width="100%" 
+        height="300" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy">
+      </iframe>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <!-- Sobre o Projeto -->
+      <div class="footer-section sobre">
+        <img src="img/logo.png" alt="Logo Portal Pra Pets" class="footer-logo">
+        <p>Seu parceiro para encontrar os melhores serviços para seu pet, tudo em um só lugar!</p>
+      </div>
+  
+      <!-- Links Úteis -->
+      <div class="footer-section links">
+        <h3>Links Úteis</h3>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="banho-tosa.html">Banho e Tosa</a></li>
+          <li><a href="consultas.html">Agendar Consulta</a></li>
+          <li><a href="hospitais.html">Hospitais Próximos</a></li>
+          <li><a href="vacinas.html">Vacinas</a></li>
+          <li><a href="dicas.html">Dicas para Pets</a></li>
+        </ul>
+      </div>
+  
+      <!-- Sobre o Projeto -->
+      <div class="footer-section projeto">
+        <h3>Sobre o Projeto</h3>
+        <p>Pra Pet's é uma plataforma que conecta tutores de pets a serviços especializados.
+          Facilitamos a busca por banho e tosa, vacinas, consultas e hospitais veterinários próximos.</p>
+        </div>
+      </div>
+      <p id="rodape"> © 2025 Pra Pet's - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+      const header = document.getElementById("header");
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+
+  const updateHeader = () => {
+    const currentScrollY = window.scrollY;
+    const diff = currentScrollY - lastScrollY;
+
+    // Oculta se rolou pra baixo mais que 10px
+    if (diff > 10 && currentScrollY > 100) {
+      header.style.top = "-100px";
+    }
+    // Mostra se rolou pra cima mais que 10px
+    else if (diff < -10) {
+      header.style.top = "0";
+    }
+
+    // Aplica transparência no topo da página
+    if (currentScrollY < 100) {
+      header.classList.add("transparent");
+    } else {
+      header.classList.remove("transparent");
+    }
+
+    lastScrollY = currentScrollY;
+    ticking = false;
+  };
+
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateHeader);
+      ticking = true;
+    }
+  });
+    </script>
+
+</body>
+</html>

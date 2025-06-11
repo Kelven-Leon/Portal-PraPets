@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Hospitais Próximos - Pra Pets</title>
+  <link rel="stylesheet" href="hospitais.css">
+</head>
+<body>
+  <div class="wrapper">
+    <h1>Hospitais Veterinários</h1>
+
+    <div class="main-content">
+      <div class="text-section">
+        <p>Veja hospitais veterinários próximos para emergências e atendimentos completos ao seu pet.</p>
+      </div>
+
+      <div class="form-section">
+        <h2>Localizar Hospital</h2>
+
+        <div class="localizacao-box">
+          <button onclick="obterLocalizacao()">📍 Localizar Hospitais Próximos</button>
+          <div id="resultado"><p>Aguardando localização...</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section sobre">
+        <img src="img/logo.png" alt="Logo Portal Pra Pets" class="footer-logo">
+        <p>Seu parceiro para encontrar os melhores serviços para seu pet, tudo em um só lugar!</p>
+      </div>
+
+      <div class="footer-section links">
+        <h3>Links Úteis</h3>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="banho-tosa.html">Banho e Tosa</a></li>
+          <li><a href="consultas.html">Agendar Consulta</a></li>
+          <li><a href="hospitais.html">Hospitais Próximos</a></li>
+          <li><a href="vacinas.html">Vacinas</a></li>
+          <li><a href="dicas.html">Dicas para Pets</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section projeto">
+        <h3>Sobre o Projeto</h3>
+        <p>Pra Pet's é uma plataforma que conecta tutores de pets a serviços especializados.
+        Facilitamos a busca por banho e tosa, vacinas, consultas e hospitais veterinários próximos.</p>
+      </div>
+    </div>
+    <p id="rodape">© 2025 Pra Pet's - Todos os direitos reservados</p>
+  </footer>
+
+  <script>
+    const tipoServico = "hospitais";
+  </script>
+  <script src="js/geolocalizacao.js"></script>
+</body>
+</html>

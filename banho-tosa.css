@@ -1,0 +1,211 @@
+/* ==== RESET ==== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ==== BASE ==== */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fdfdfd;
+  color: #333;
+  line-height: 1.6;
+  padding-bottom: 0;
+}
+
+header {
+  background: #3ca66b;
+  color: white;
+  text-align: center;
+  padding: 1.5rem 1rem;
+}
+
+header h1 {
+  font-size: 2rem;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 1rem;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* ==== SECTIONS ==== */
+main {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+section {
+  margin-bottom: 3rem;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  flex: 1 1 260px;
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.card h3 {
+  color: #3ca66b;
+  margin-bottom: 0.5rem;
+}
+
+/* ==== FORMULÁRIO ==== */
+.form-section form {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-top: 1rem;
+}
+
+form label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: bold;
+}
+
+form input,
+form select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+form button[type="submit"],
+button {
+  background-color: #3ca66b;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+form button:hover,
+button:hover {
+  background-color: #35995e;
+}
+
+/* ==== LOCALIZAÇÃO ==== */
+.localizacao-section p {
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+/* Rodapé bonito e organizado */
+.footer {
+  background: #2d8039;
+  color: #f1f1f1;
+  padding: 20px 10px;
+  border-top: 2px solid #a4d4a0;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
+  gap: 20px;
+}
+
+.footer-section {
+  flex: 1 1 250px;
+  min-width: 250px;
+  font-size: 1.1em;
+}
+
+.footer-logo {
+  width: 60px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  margin-bottom: 4px;
+}
+
+.footer-section h3 {
+  margin-bottom: 20px;
+  font-size: 1.1em;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  font-size: 1.1em;
+}
+
+.footer-section ul li {
+  margin-bottom: 5px;
+  font-size: 1.1em;
+}
+
+.footer-section ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.footer-section ul li a:hover {
+  text-decoration: underline;
+  
+}
+
+.copyright {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: white;
+}
+
+#rodape{
+  text-align: center;
+  color: rgba(255, 255, 255, 0.322);
+}
+
+
+
+/* ==== RESPONSIVO ==== */
+@media (max-width: 600px) {
+  nav a {
+    display: block;
+    margin: 0.5rem 0;
+  }
+
+  .card {
+    flex: 1 1 100%;
+  }
+
+  form input,
+  form select {
+    font-size: 1rem;
+  }
+}

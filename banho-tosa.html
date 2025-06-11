@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Banho e Tosa - Agendamento</title>
+  <link rel="stylesheet" href="banho-tosa.css" />
+</head>
+<body>
+  <header>
+    <h1>Banho e Tosa</h1>
+    <nav>
+      <a href="#diferenciais">Diferenciais</a>
+      <a href="#agendar">Agendar</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="diferenciais" class="cards-section">
+      <h2>Nossos Diferenciais</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Profissionais Qualificados</h3>
+          <p>Equipe treinada e amorosa com seu pet.</p>
+        </div>
+        <div class="card">
+          <h3>Produtos Naturais</h3>
+          <p>Shampoos e condicionadores naturais e antialérgicos.</p>
+        </div>
+        <div class="card">
+          <h3>Ambiente Confortável</h3>
+          <p>Local limpo, seguro e tranquilo para os bichinhos.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="agendar" class="form-section">
+      <h2>Agende um Horário</h2>
+      <button id="btnShowForm" aria-label="Mostrar ou ocultar formulário">Mostrar Formulário</button>
+
+      <form id="agendamentoForm" style="display:none;">
+        <label for="nome">Nome do Pet:</label>
+        <input type="text" id="nome" name="nome" required />
+
+        <label for="telefone">Telefone:</label>
+        <input type="tel" id="telefone" name="telefone" required />
+
+        <label for="servico">Serviço:</label>
+        <select id="servico" name="servico" required>
+          <option value="">Selecione</option>
+          <option value="banho">Banho</option>
+          <option value="tosa">Tosa</option>
+          <option value="banho+tosa">Banho + Tosa</option>
+        </select>
+
+        <label for="data">Data:</label>
+        <input type="date" id="data" name="data" required />
+
+        <label for="hora">Hora:</label>
+        <input type="time" id="hora" name="hora" required />
+
+        <button type="submit">Agendar</button>
+      </form>
+    </section>
+
+    <section id="localizacao" class="localizacao-section">
+      <h2>Encontre Pet Shops Perto</h2>
+      <button id="btnLocalizacao" aria-label="Usar minha localização">Usar Minha Localização</button>
+      <p id="status"></p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <!-- Sobre o Projeto -->
+      <div class="footer-section sobre">
+        <img src="img/logo.png" alt="Logo Portal Pra Pets" class="footer-logo">
+        <p>Seu parceiro para encontrar os melhores serviços para seu pet, tudo em um só lugar!</p>
+      </div>
+  
+      <!-- Links Úteis -->
+      <div class="footer-section links">
+        <h3>Links Úteis</h3>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="banho-tosa.html">Banho e Tosa</a></li>
+          <li><a href="consultas.html">Agendar Consulta</a></li>
+          <li><a href="hospitais.html">Hospitais Próximos</a></li>
+          <li><a href="vacinas.html">Vacinas</a></li>
+          <li><a href="dicas.html">Dicas para Pets</a></li>
+        </ul>
+      </div>
+  
+      <!-- Sobre o Projeto -->
+      <div class="footer-section projeto">
+        <h3>Sobre o Projeto</h3>
+        <p>Pra Pet's é uma plataforma que conecta tutores de pets a serviços especializados.
+          Facilitamos a busca por banho e tosa, vacinas, consultas e hospitais veterinários próximos.</p>
+        </div>
+      </div>
+      <p id="rodape"> © 2025 Pra Pet's - Todos os direitos reservados</p>
+    </footer>
+  <script>
+    const btnShowForm = document.getElementById('btnShowForm');
+    const form = document.getElementById('agendamentoForm');
+    const btnLocalizacao = document.getElementById('btnLocalizacao');
+    const status = document.getElementById('status');
+
+    btnShowForm.addEventListener('click', () => {
+      const showing = form.style.display === 'block';
+      form.style.display = showing ? 'none' : 'block';
+      btnShowForm.textContent = showing ? 'Mostrar Formulário' : 'Ocultar Formulário';
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Agendamento realizado com sucesso!');
+      form.reset();
+      form.style.display = 'none';
+      btnShowForm.textContent = 'Mostrar Formulário';
+    });
+
+    btnLocalizacao.addEventListener('click', () => {
+      if (!navigator.geolocation) {
+        status.textContent = 'Geolocalização não suportada.';
+        return;
+      }
+
+      status.textContent = 'Buscando localização...';
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          const mapsUrl = `https://www.google.com/maps/search/pet+shop/@${latitude},${longitude},15z`;
+          status.innerHTML = `<a href="${mapsUrl}" target="_blank">Veja pet shops próximos</a>`;
+        },
+        () => {
+          status.textContent = 'Não foi possível acessar sua localização.';
+        }
+      );
+    });
+  </script>
+</body>
+</html>

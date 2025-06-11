@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cadastro de Pets | PraPets</title>
+  <link rel="stylesheet" href="pets.css" />
+</head>
+<body>
+  <header id="header">
+  <div class="header-container">
+    <img src="img/logo.png" alt="Logo" class="logo">
+    <span class="titulo">PraPets</span>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#">Início</a></li>
+
+        <li class="dropdown">
+          <a href="#">Serviços</a>
+          <ul class="dropdown-menu">
+            <li><a href="./banho-tosa.html">Banho e Tosa</a></li>
+            <li><a href="./vacinas.html">Vacinas</a></li>
+            <li><a href="./consultas.html">Consultas</a></li>
+            <li><a href="./hospitais.html">Veterinários Próximos</a></li>
+            <li><a href="./servicos-agendados.html">Histórico de Agendamentos</a></li>
+            <li><a href="./dicas.html">Guia de Cuidados Essenciais</a></li>
+          </ul>
+        </li>
+
+        <li><a href="./contato.html">Contato</a></li>
+        <li><a href="./pets.html">Pets</a></li>
+        <li><a href="./inicio.html">Sair</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+  <div class="header">
+    <h1>PraPets - Cadastro de Animais</h1>
+    <p class="intro">Aqui você pode registrar seus pets para manter um histórico de informações, fotos e descrições, e ainda organizar tudo em um só lugar.</p>
+  </div>
+
+  <main class="container">
+    <div class="counter">Total de Pets Cadastrados: <span id="petCounter">0</span></div>
+
+    <div class="search-bar">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Buscar pet por nome..."
+        aria-label="Buscar pet por nome"
+      />
+    </div>
+
+    <form id="petForm" aria-label="Formulário para cadastrar pet">
+      <input type="text" id="nome" placeholder="Nome do Pet" required autocomplete="off" />
+      <input type="text" id="especie" placeholder="Espécie (ex: cão, gato)" required autocomplete="off" />
+      <input type="number" id="idade" placeholder="Idade" required min="0" />
+
+      <label
+        for="foto"
+        class="upload-btn"
+        style="display: inline-flex; align-items: center; cursor: pointer; background-color: #2e7d323d; padding: 8px 12px; border-radius: 5px; margin-bottom: 10px;"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#00aaff" viewBox="0 0 24 24" style="margin-right: 8px;">
+          <path
+            d="M12 5c-1.1 0-2 .9-2 2H7.83c-.39 0-.74.24-.88.61L6 9H4c-1.1 0-2 .9-2 2v9c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-9c0-1.1-.9-2-2-2h-2l-.95-1.39a1 1 0 0 0-.88-.61H14c0-1.1-.9-2-2-2zm0 4a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 .001 6.001A3 3 0 0 0 12 11z"
+          />
+        </svg>
+        Escolher Foto do Pet
+      </label>
+      <input type="file" id="foto" accept="image/*" style="display: none;" />
+
+      <textarea id="descricao" placeholder="Descrição do pet (opcional)"></textarea>
+
+      <button type="submit" class="btn-cadastrar" aria-label="Cadastrar pet">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          fill="white"
+          viewBox="0 0 24 24"
+          style="margin-right: 8px;"
+        >
+          <path
+            d="M12 5v14m-7-7h14"
+            stroke="white"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        Cadastrar Pet
+      </button>
+    </form>
+
+    <div id="mensagem" role="alert" aria-live="polite"></div>
+
+    <div class="pet-list" id="listaPets"></div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <!-- Sobre o Projeto -->
+      <div class="footer-section sobre">
+        <img src="img/logo.png" alt="Logo Portal Pra Pets" class="footer-logo" />
+        <p>Seu parceiro para encontrar os melhores serviços para seu pet, tudo em um só lugar!</p>
+      </div>
+
+      <!-- Links Úteis -->
+      <div class="footer-section links">
+        <h3>Links Úteis</h3>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="banho-tosa.html">Banho e Tosa</a></li>
+          <li><a href="consultas.html">Agendar Consulta</a></li>
+          <li><a href="hospitais.html">Hospitais Próximos</a></li>
+          <li><a href="vacinas.html">Vacinas</a></li>
+          <li><a href="dicas.html">Dicas para Pets</a></li>
+        </ul>
+      </div>
+
+      <!-- Sobre o Projeto -->
+      <div class="footer-section projeto">
+        <h3>Sobre o Projeto</h3>
+        <p>
+          Pra Pet's é uma plataforma que conecta tutores de pets a serviços especializados.
+          Facilitamos a busca por banho e tosa, vacinas, consultas e hospitais veterinários próximos.
+        </p>
+      </div>
+    </div>
+    <p id="rodape">© 2025 Pra Pet's - Todos os direitos reservados</p>
+  </footer>
+
+  <script>
+
+    const header = document.getElementById("header");
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+
+  const updateHeader = () => {
+    const currentScrollY = window.scrollY;
+    const diff = currentScrollY - lastScrollY;
+
+    // Oculta se rolou pra baixo mais que 10px
+    if (diff > 10 && currentScrollY > 100) {
+      header.style.top = "-100px";
+    }
+    // Mostra se rolou pra cima mais que 10px
+    else if (diff < -10) {
+      header.style.top = "0";
+    }
+
+    // Aplica transparência no topo da página
+    if (currentScrollY < 100) {
+      header.classList.add("transparent");
+    } else {
+      header.classList.remove("transparent");
+    }
+
+    lastScrollY = currentScrollY;
+    ticking = false;
+  };
+
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateHeader);
+      ticking = true;
+    }
+  });
+  
+    (() => {
+      const form = document.getElementById("petForm");
+      const listaPets = document.getElementById("listaPets");
+      const mensagem = document.getElementById("mensagem");
+      const petCounter = document.getElementById("petCounter");
+      const searchInput = document.getElementById("searchInput");
+      let pets = JSON.parse(localStorage.getItem("pets")) || [];
+
+      // Atualiza a lista inicial e contador
+      atualizarLista();
+
+      // Evento para busca
+      searchInput.addEventListener("input", atualizarLista);
+
+      // Evento para submit do formulário
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const nome = form.nome.value.trim();
+        const especie = form.especie.value.trim();
+        const idade = form.idade.value;
+        const descricao = form.descricao.value.trim();
+
+        if (pets.some((pet) => pet.nome.toLowerCase() === nome.toLowerCase())) {
+          mostrarMensagem("Já existe um pet com esse nome!", "error");
+          return;
+        }
+
+        const inputFoto = form.foto;
+        const file = inputFoto.files[0];
+
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            adicionarPet(nome, especie, idade, event.target.result, descricao);
+          };
+          reader.readAsDataURL(file);
+        } else {
+          adicionarPet(nome, especie, idade, "", descricao);
+        }
+      });
+
+      function adicionarPet(nome, especie, idade, foto, descricao) {
+        const novoPet = { nome, especie, idade, foto, descricao };
+        pets.push(novoPet);
+        salvarPets();
+        atualizarLista();
+        form.reset();
+        mostrarMensagem("Pet cadastrado com sucesso!", "success");
+      }
+
+      function atualizarLista() {
+        listaPets.innerHTML = "";
+
+        const filtro = searchInput.value.toLowerCase();
+        const filtrados = pets.filter((pet) =>
+          pet.nome.toLowerCase().includes(filtro)
+        );
+
+        filtrados.forEach((pet, index) => {
+          const card = document.createElement("div");
+          card.className = "pet-card";
+
+          // Usar delegação para evitar conflito no botão excluir
+          card.innerHTML = `
+            <a href="detalhes-pet.html?nome=${encodeURIComponent(
+              pet.nome
+            )}" class="pet-link" tabindex="0" aria-label="Detalhes do pet ${pet.nome}">
+              ${
+                pet.foto
+                  ? `<img src="${pet.foto}" alt="Foto do pet ${pet.nome}" class="pet-foto" />`
+                  : ""
+              }
+              <h3>${pet.nome}</h3>
+              <p><strong>Espécie:</strong> ${pet.especie}</p>
+              <p><strong>Idade:</strong> ${pet.idade} anos</p>
+              ${
+                pet.descricao
+                  ? `<p><strong>Descrição:</strong> ${pet.descricao}</p>`
+                  : ""
+              }
+            </a>
+            <button class="excluir" aria-label="Excluir pet ${pet.nome}" data-index="${index}">
+              Excluir
+            </button>
+          `;
+
+          listaPets.appendChild(card);
+        });
+
+        petCounter.textContent = pets.length;
+
+        // Adiciona evento para todos os botões excluir
+        document.querySelectorAll(".excluir").forEach((btn) =>
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const index = parseInt(e.currentTarget.dataset.index, 10);
+            excluirPet(index);
+          })
+        );
+      }
+
+      function excluirPet(index) {
+        if (
+          confirm(`Tem certeza que deseja excluir o pet "${pets[index].nome}"?`)
+        ) {
+          pets.splice(index, 1);
+          salvarPets();
+          atualizarLista();
+          mostrarMensagem("Pet excluído com sucesso.", "success");
+        }
+      }
+
+      function salvarPets() {
+        localStorage.setItem("pets", JSON.stringify(pets));
+      }
+
+      function mostrarMensagem(msg, tipo) {
+        mensagem.textContent = msg;
+        mensagem.className = tipo;
+        setTimeout(() => {
+          mensagem.textContent = "";
+          mensagem.className = "";
+        }, 3000);
+      }
+    })();
+  </script>
+</body>
+</html>

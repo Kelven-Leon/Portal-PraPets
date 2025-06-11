@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dicas Essenciais para seu Pet - Portal Pra Pets</title>
+  <link rel="stylesheet" href="dicas.css" />
+</head>
+<body>
+
+  <header class="top-header">
+    <div class="container">
+      <h1>Portal Pra Pets</h1>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="banho-tosa.html">Banho e Tosa</a></li>
+          <li><a href="consultas.html">Consulta</a></li>
+          <li><a href="vacinas.html">Vacinas</a></li>
+          <li><a href="dicas.html" class="active">Dicas</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="dicas-para-pets">
+      <h2>Dicas Essenciais para Cuidar do seu Pet</h2>
+
+     <div class="slider-wrapper">
+  <div class="slider">
+    <div class="slide">
+      <h3>Alimentação Saudável</h3>
+      <img src="img/alimentacao.webp" alt="Alimentação Saudável para Pets" />
+      <p>Oferecer uma dieta balanceada e de alta qualidade é fundamental para a saúde e bem-estar do seu pet.</p>
+      <ul class="lista-dicas">
+        <li>Escolha rações premium adequadas à fase da vida do seu pet.</li>
+        <li>Evite alimentos humanos que podem ser tóxicos ou prejudiciais.</li>
+        <li>Mantenha horários regulares de alimentação e controle as porções.</li>
+        <li>Disponibilize água fresca e limpa em abundância.</li>
+      </ul>
+    </div>
+
+    <div class="slide">
+      <h3>Hidratação Constante</h3>
+      <img src="img/hidratacao-pet.webp" alt="Hidratação Constante para Pets" />
+      <p>A água é essencial para todas as funções do organismo do seu pet.</p>
+      <ul class="lista-dicas">
+        <li>Mantenha o bebedouro sempre cheio.</li>
+        <li>Ofereça água em diferentes locais da casa.</li>
+        <li>Observe se o consumo de água está normal.</li>
+      </ul>
+    </div>
+
+    <div class="slide">
+      <h3>Exercício Regular</h3>
+      <img src="img/exercicio-pet.webp" alt="Exercício Regular para Pets" />
+      <p>A atividade física é crucial para a saúde física e mental do seu pet.</p>
+      <ul class="lista-dicas">
+        <li>Adapte o tipo e a intensidade do exercício à idade e raça do seu pet.</li>
+        <li>Estabeleça uma rotina de passeios diários.</li>
+        <li>Ofereça brinquedos interativos para estimular a mente e o corpo.</li>
+      </ul>
+    </div>
+
+    <div class="slide">
+      <h3>Visitas ao Veterinário</h3>
+      <img src="img/veterinario.webp" alt="Visitas Regulares ao Veterinário" />
+      <p>Consultas de rotina com o veterinário são fundamentais para a prevenção e tratamento de doenças.</p>
+      <ul class="lista-dicas">
+        <li>Agende check-ups anuais ou semestrais.</li>
+        <li>Observe qualquer mudança no comportamento.</li>
+        <li>Siga o calendário de vacinação e vermifugação.</li>
+      </ul>
+    </div>
+
+    <div class="slide">
+      <h3>Higiene Adequada</h3>
+      <img src="img/higiene.webp" alt="Higiene Adequada para Pets" />
+      <p>A higiene fortalece o vínculo e previne doenças.</p>
+      <ul class="lista-dicas">
+        <li>Dê banhos com frequência adequada.</li>
+        <li>Escove o pelo regularmente.</li>
+        <li>Corte as unhas com segurança.</li>
+        <li>Limpe os ouvidos com produtos específicos.</li>
+      </ul>
+    </div>
+
+    <div class="slide">
+      <h3>Carinho e Atenção</h3>
+      <img src="img/carinho.webp" alt="Carinho e Atenção ao Pet" />
+      <p>O carinho fortalece o vínculo emocional entre você e seu pet.</p>
+      <ul class="lista-dicas">
+        <li>Reserve tempo para brincar e interagir.</li>
+        <li>Observe sinais emocionais do seu pet.</li>
+        <li>Ofereça atenção e afeto diariamente.</li>
+      </ul>
+    </div>
+  </div>
+
+  <button class="nav-btn prev" aria-label="Slide Anterior">&#10094;</button>
+  <button class="nav-btn next" aria-label="Próximo Slide">&#10095;</button>
+
+  <div class="slider-indicators" aria-label="Indicadores do Slider">
+    <!-- Bolinhas geradas pelo JS -->
+  </div>
+</div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section sobre">
+        <img src="img/logo.png" alt="Logo Portal Pra Pets" class="footer-logo">
+        <p>Seu parceiro para encontrar os melhores serviços para seu pet, tudo em um só lugar!</p>
+      </div>
+
+      <div class="footer-section links">
+        <h3>Links Úteis</h3>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="banho-tosa.html">Banho e Tosa</a></li>
+          <li><a href="consultas.html">Consulta</a></li>
+          <li><a href="vacinas.html">Vacinas</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section projeto">
+        <h3>Sobre o Projeto</h3>
+        <p>Pra Pet's conecta tutores de pets a serviços especializados como banho e tosa, vacinas, consultas e hospitais veterinários.</p>
+      </div>
+    </div>
+    <p id="rodape">© 2025 Pra Pet's - Todos os direitos reservados</p>
+  </footer>
+
+  <!-- Slider Script -->
+<script>
+  const slider = document.querySelector('.slider');
+  const slides = document.querySelectorAll('.slide');
+  const prevBtn = document.querySelector('.prev');
+  const nextBtn = document.querySelector('.next');
+  const indicatorsContainer = document.querySelector('.slider-indicators');
+
+  let currentIndex = 0;
+  const totalSlides = slides.length;
+  let autoPlayInterval;
+  const intervalTime = 5000; // 5 segundos
+
+  function createIndicators() {
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('span');
+      dot.classList.add('indicator');
+      if (i === 0) dot.classList.add('active');
+      dot.setAttribute('data-index', i);
+      indicatorsContainer.appendChild(dot);
+    }
+  }
+
+  function updateSliderPosition() {
+    slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+    document.querySelectorAll('.indicator').forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === currentIndex);
+    });
+  }
+
+ function goToSlide(index) {
+  currentIndex = (index + totalSlides) % totalSlides;
+  updateSliderPosition();
+}
+
+  prevBtn.addEventListener('click', () => {
+    goToSlide(currentIndex - 1);
+    resetAutoplay();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    goToSlide(currentIndex + 1);
+    resetAutoplay();
+  });
+
+  indicatorsContainer.addEventListener('click', (e) => {
+    if (e.target.classList.contains('indicator')) {
+      goToSlide(Number(e.target.getAttribute('data-index')));
+      resetAutoplay();
+    }
+  });
+
+ function startAutoplay() {
+  stopAutoplay(); // evitar mais de um setInterval
+  autoPlayInterval = setInterval(() => {
+    goToSlide(currentIndex + 1);
+  }, intervalTime);
+}
+
+  function stopAutoplay() {
+    clearInterval(autoPlayInterval);
+  }
+
+  function resetAutoplay() {
+  stopAutoplay();
+  startAutoplay(); // aqui ele pega o currentIndex atualizado
+}
+
+  // Inicialização
+  createIndicators();
+  updateSliderPosition();
+  startAutoplay();
+
+  // Pausar autoplay quando o usuário passa o mouse
+  const sliderWrapper = document.querySelector('.slider-wrapper');
+  sliderWrapper.addEventListener('mouseenter', stopAutoplay);
+  sliderWrapper.addEventListener('mouseleave', startAutoplay);
+</script>
+
+
+</body>
+</html>

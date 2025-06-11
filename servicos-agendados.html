@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Serviços Agendados - Pra Pets</title>
+  <link rel="stylesheet" href="servicos-agendados.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <script
+    src="https://kit.fontawesome.com/a076d05399.js"
+    crossorigin="anonymous"
+    defer
+  ></script>
+</head>
+<body>
+
+  <header id="header">
+  <div class="header-container">
+    <img src="img/logo.png" alt="Logo" class="logo">
+    <span class="titulo">PraPets</span>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="./index.html">Início</a></li>
+
+        <li class="dropdown">
+          <a href="#">Serviços</a>
+          <ul class="dropdown-menu">
+            <li><a href="./banho-tosa.html">Banho e Tosa</a></li>
+            <li><a href="./vacinas.html">Vacinas</a></li>
+            <li><a href="./consultas.html">Consultas</a></li>
+            <li><a href="./hospitais.html">Veterinários Próximos</a></li>
+            <li><a href="./servicos-agendados.html">Histórico de Agendamentos</a></li>
+            <li><a href="./dicas.html">Guia de Cuidados Essenciais</a></li>
+          </ul>
+        </li>
+
+        <li><a href="./contato.html">Contato</a></li>
+        <li><a href="./pets.html">Pets</a></li>
+        <li><a href="./inicio.html">Sair</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</header>
+
+  <div class="header">
+    <h1>Serviços Agendados</h1>
+  </div>
+
+  <main class="main-content" role="main">
+    <section class="card-servicos" aria-label="Histórico de agendamentos">
+      <h2><i class="fas fa-paw"></i> Histórico de Agendamentos do Pet</h2>
+
+      <p class="mensagem-historico">
+        Aqui você poderá acompanhar todos os serviços já agendados para o seu
+        pet, como banhos, tosas, consultas e muito mais.
+      </p>
+
+      <p
+        class="sem-agendamentos"
+        role="alert"
+        aria-live="assertive"
+        id="msgSemAgendamentos"
+      >
+        <i class="fas fa-info-circle"></i> Nenhum serviço agendado até o momento.
+      </p>
+
+      <h3>Agendamentos Futuros</h3>
+      <table class="tabela-servicos" id="tabelaFuturos" aria-describedby="msgFuturos">
+        <caption id="msgFuturos">Lista de serviços agendados para o futuro</caption>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Serviço</th>
+            <th>Pet</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <h3>Agendamentos Passados</h3>
+      <table class="tabela-servicos" id="tabelaPassados" aria-describedby="msgPassados">
+        <caption id="msgPassados">Lista de serviços já realizados</caption>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Serviço</th>
+            <th>Pet</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <button class="btn-agendar" id="btnAbrirModal" aria-haspopup="dialog" aria-controls="modalAgendamento">
+        <i class="fas fa-calendar-plus"></i> Agendar Novo Serviço
+      </button>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modalAgendamento" role="dialog" aria-modal="true" aria-labelledby="tituloModal" tabindex="-1" hidden>
+    <div class="modal" role="document">
+      <button class="btn-fechar" aria-label="Fechar modal" id="btnFecharModal">&times;</button>
+      <h2 id="tituloModal">Novo Agendamento</h2>
+      <form id="formAgendamento" novalidate>
+        <label for="dataServico">Data do Serviço:</label>
+        <input
+          type="date"
+          id="dataServico"
+          name="dataServico"
+          required
+          aria-required="true"
+        />
+
+        <label for="tipoServico">Tipo de Serviço:</label>
+        <select id="tipoServico" name="tipoServico" required aria-required="true">
+          <option value="">-- Selecione --</option>
+          <option value="Banho">Banho</option>
+          <option value="Tosa">Tosa</option>
+          <option value="Consulta">Consulta</option>
+          <option value="Vacinação">Vacinação</option>
+          <option value="Outro">Outro</option>
+        </select>
+
+        <label for="nomePet">Nome do Pet:</label>
+        <input
+          type="text"
+          id="nomePet"
+          name="nomePet"
+          required
+          minlength="2"
+          maxlength="50"
+          aria-required="true"
+          placeholder="Ex: Rex"
+        />
+
+        <label for="statusServico">Status do Serviço:</label>
+        <select id="statusServico" name="statusServico" required aria-required="true">
+          <option value="">-- Selecione --</option>
+          <option value="Pendente">Pendente</option>
+          <option value="Concluído">Concluído</option>
+          <option value="Cancelado">Cancelado</option>
+        </select>
+
+        <button type="submit" class="submit-btn">Salvar Agendamento</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast de confirmação -->
+  <div class="toast" role="alert" aria-live="polite" aria-atomic="true" id="toastMensagem"></div>
+
+ <footer class="footer">
+    <div class="footer-container">
+      <!-- Sobre o Projeto -->
+      <div class="footer-section sobre">
+        <img src="img/logo.png" alt="Logo Portal Pra Pets" class="footer-logo">
+        <p>Seu parceiro para encontrar os melhores serviços para seu pet, tudo em um só lugar!</p>
+      </div>
+  
+      <!-- Links Úteis -->
+      <div class="footer-section links">
+        <h3>Links Úteis</h3>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="banho-tosa.html">Banho e Tosa</a></li>
+          <li><a href="consultas.html">Agendar Consulta</a></li>
+          <li><a href="hospitais.html">Hospitais Próximos</a></li>
+          <li><a href="vacinas.html">Vacinas</a></li>
+          <li><a href="dicas.html">Dicas para Pets</a></li>
+        </ul>
+      </div>
+  
+      <!-- Sobre o Projeto -->
+      <div class="footer-section projeto">
+        <h3>Sobre o Projeto</h3>
+        <p>Pra Pet's é uma plataforma que conecta tutores de pets a serviços especializados.
+          Facilitamos a busca por banho e tosa, vacinas, consultas e hospitais veterinários próximos.</p>
+        </div>
+      </div>
+      <p id="rodape"> © 2025 Pra Pet's - Todos os direitos reservados</p>
+    </footer>
+
+  <script>
+    const header = document.getElementById("header");
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+
+  const updateHeader = () => {
+    const currentScrollY = window.scrollY;
+    const diff = currentScrollY - lastScrollY;
+
+    // Oculta se rolou pra baixo mais que 10px
+    if (diff > 10 && currentScrollY > 100) {
+      header.style.top = "-100px";
+    }
+    // Mostra se rolou pra cima mais que 10px
+    else if (diff < -10) {
+      header.style.top = "0";
+    }
+
+    // Aplica transparência no topo da página
+    if (currentScrollY < 100) {
+      header.classList.add("transparent");
+    } else {
+      header.classList.remove("transparent");
+    }
+
+    lastScrollY = currentScrollY;
+    ticking = false;
+  };
+
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateHeader);
+      ticking = true;
+    }
+  });
+  
+    (() => {
+      const modal = document.getElementById('modalAgendamento');
+      const btnAbrirModal = document.getElementById('btnAbrirModal');
+      const btnFecharModal = document.getElementById('btnFecharModal');
+      const form = document.getElementById('formAgendamento');
+      const toast = document.getElementById('toastMensagem');
+
+      const tabelaFuturosBody = document.querySelector('#tabelaFuturos tbody');
+      const tabelaPassadosBody = document.querySelector('#tabelaPassados tbody');
+      const msgSemAgendamentos = document.getElementById('msgSemAgendamentos');
+
+      // Função para abrir modal e focar primeiro input
+      function abrirModal() {
+        modal.hidden = false;
+        modal.classList.add('active');
+        modal.focus();
+        form.reset();
+        document.getElementById('dataServico').focus();
+      }
+
+      // Fechar modal
+      function fecharModal() {
+        modal.classList.remove('active');
+        setTimeout(() => {
+          modal.hidden = true;
+        }, 300);
+      }
+
+      // Exibir mensagem toast
+      function mostrarToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3000);
+      }
+
+      // Converter data para formato legível dd/mm/yyyy
+      function formatarData(dataISO) {
+        const d = new Date(dataISO);
+        if (isNaN(d)) return dataISO;
+        return d.toLocaleDateString('pt-BR');
+      }
+
+      // Criar linha da tabela
+      function criarLinhaAgendamento(agendamento) {
+        const tr = document.createElement('tr');
+
+        // Data
+        const tdData = document.createElement('td');
+        tdData.textContent = formatarData(agendamento.dataServico);
+        tr.appendChild(tdData);
+
+        // Serviço
+        const tdServico = document.createElement('td');
+        tdServico.textContent = agendamento.tipoServico;
+        tr.appendChild(tdServico);
+
+        // Pet
+        const tdPet = document.createElement('td');
+        tdPet.textContent = agendamento.nomePet;
+        tr.appendChild(tdPet);
+
+        // Status com cor
+        const tdStatus = document.createElement('td');
+        const spanStatus = document.createElement('span');
+        spanStatus.textContent = agendamento.statusServico;
+
+        if (agendamento.statusServico === 'Pendente') {
+          spanStatus.className = 'status-pendente';
+          spanStatus.innerHTML = '<i class="fas fa-hourglass-half"></i> Pendente';
+        } else if (agendamento.statusServico === 'Concluído') {
+          spanStatus.className = 'status-concluido';
+          spanStatus.innerHTML = '<i class="fas fa-check-circle"></i> Concluído';
+        } else if (agendamento.statusServico === 'Cancelado') {
+          spanStatus.className = 'status-cancelado';
+          spanStatus.innerHTML = '<i class="fas fa-times-circle"></i> Cancelado';
+        } else {
+          spanStatus.textContent = agendamento.statusServico;
+        }
+        tdStatus.appendChild(spanStatus);
+        tr.appendChild(tdStatus);
+
+        return tr;
+      }
+
+      // Salvar no LocalStorage
+      function salvarAgendamentos(agendamentos) {
+        localStorage.setItem('agendamentosPraPets', JSON.stringify(agendamentos));
+      }
+
+      // Carregar do LocalStorage
+      function carregarAgendamentos() {
+        const dados = localStorage.getItem('agendamentosPraPets');
+        return dados ? JSON.parse(dados) : [];
+      }
+
+      // Atualizar tabelas na tela
+      function atualizarTabelas() {
+        const agendamentos = carregarAgendamentos();
+
+        tabelaFuturosBody.innerHTML = '';
+        tabelaPassadosBody.innerHTML = '';
+
+        const hoje = new Date();
+        let total = agendamentos.length;
+
+        agendamentos.forEach((ag) => {
+          const dataAgendamento = new Date(ag.dataServico);
+          if (dataAgendamento >= hoje) {
+            tabelaFuturosBody.appendChild(criarLinhaAgendamento(ag));
+          } else {
+            tabelaPassadosBody.appendChild(criarLinhaAgendamento(ag));
+          }
+        });
+
+        // Mostrar mensagem se não tiver nenhum agendamento
+        if (total === 0) {
+          msgSemAgendamentos.style.display = 'block';
+        } else {
+          msgSemAgendamentos.style.display = 'none';
+        }
+      }
+
+      // Validação customizada simples (extra)
+      function validarFormulario() {
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return false;
+        }
+        return true;
+      }
+
+      // Evento submit do formulário
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        if (!validarFormulario()) return;
+
+        const novoAgendamento = {
+          dataServico: form.dataServico.value,
+          tipoServico: form.tipoServico.value,
+          nomePet: form.nomePet.value.trim(),
+          statusServico: form.statusServico.value,
+        };
+
+        const agendamentos = carregarAgendamentos();
+        agendamentos.push(novoAgendamento);
+        salvarAgendamentos(agendamentos);
+        atualizarTabelas();
+        fecharModal();
+        mostrarToast('Agendamento salvo com sucesso!');
+      });
+
+      // Abrir modal
+      btnAbrirModal.addEventListener('click', abrirModal);
+
+      // Fechar modal pelo botão
+      btnFecharModal.addEventListener('click', fecharModal);
+
+      // Fechar modal com ESC
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.hidden) {
+          fecharModal();
+        }
+      });
+
+      // Fechar modal clicando fora do modal
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          fecharModal();
+        }
+      });
+
+      // Inicializar tabelas
+      atualizarTabelas();
+    })();
+  </script>
+</body>
+</html>

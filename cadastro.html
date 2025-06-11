@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro - Portal Pra Pets</title>
+    <link rel="stylesheet" href="cadastro.css">
+</head>
+<body>
+    <div class="form-container">
+        <img src="img/logo.png" alt="Logo Portal Pra Pets" class="login-logo">
+        <h2>Cadastro</h2>
+        <!-- Formulário único com ID -->
+        <form id="formCadastro" action="#" method="post">
+            <label for="nome">Nome completo:</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
+
+            <label for="confirmar">Confirmar senha:</label>
+            <input type="password" id="confirmar" name="confirmar" required>
+
+            <button type="submit">Cadastrar</button>
+        </form>
+        <p>Já tem uma conta? <a href="login.html">Faça login</a></p>
+    </div>
+
+    <script>
+        document.getElementById('formCadastro').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio tradicional do formulário
+
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+            const confirmar = document.getElementById('confirmar').value;
+
+            if (senha !== confirmar) {
+                alert("As senhas não coincidem!");
+                return;
+            }
+
+            const usuario = {
+                nome,
+                email,
+                senha
+            };
+
+            localStorage.setItem(email, JSON.stringify(usuario));
+
+            alert("Cadastro salvo com sucesso!");
+
+            this.reset();
+        });
+    </script>
+</body>
+</html>

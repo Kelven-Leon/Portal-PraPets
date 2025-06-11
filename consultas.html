@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Consultas - Pra Pets</title>
+  <link rel="stylesheet" href="consultas.css" />
+  <style>
+    /* Estilos mínimos para resultado e mensagens */
+    .loading { color: rgb(0, 0, 0); }
+    .erro { color: red; }
+    .resultado-sucesso { color: green; }
+    .botao-maps {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 12px;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .botao-maps:hover {
+      background-color: #45a049;
+    }
+    /* Estilo para a lista de confirmação */
+    #msgResultado ul {
+      list-style-type: disc;
+      padding-left: 20px;
+      margin-top: 8px;
+    }
+    #msgResultado ul li {
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+<header>
+    <h1>Consultas do Pet</h1>
+  </header>
+
+  <main class="main-content">
+    <section class="text-section" aria-label="Informações sobre consultas veterinárias">
+      <p>
+        A saúde do seu pet é prioridade! 💖<br />
+        Nossos profissionais são especializados em cuidados preventivos, diagnóstico e tratamento de diversas condições.
+        Agende agora uma consulta e ofereça ao seu melhor amigo o cuidado que ele merece.
+      </p>
+      <ul>
+        <li>✔️ Ambientes limpos e climatizados</li>
+        <li>✔️ Atendimento com hora marcada</li>
+        <li>✔️ Veterinários com experiência em clínica geral e especialidades</li>
+        <li>✔️ Amor e respeito em cada atendimento</li>
+      </ul>
+    </section>
+
+    <section class="form-section" aria-label="Formulário de agendamento">
+      <h2>Agende a consulta do seu pet 🐾</h2>
+
+      <div class="localizacao-box">
+        <button type="button" onclick="obterLocalizacao()">📍 Localizar Clínicas Veterinárias</button>
+        <div id="resultado"><p>Aguardando localização...</p></div>
+      </div>
+
+      <form id="formConsulta" action="#" method="post">
+        <label for="nomePet">Nome do Pet:</label>
+        <input type="text" id="nomePet" name="nomePet" placeholder="Ex: Thor" required />
+
+        <label for="nomeClinica">Nome da Clínica:</label>
+        <input type="text" id="nomeClinica" name="nomeClinica" placeholder="Digite o nome da clínica" required />
+
+        <label for="data">Data:</label>
+        <input type="date" id="data" name="data" required />
+
+        <label for="hora">Hora:</label>
+        <input type="time" id="hora" name="hora" required />
+
+        <button type="submit">🗓️ Agendar Consulta</button>
+      </form>
+
+      <div id="msgResultado"></div>
+    </section>
+  </main>
+
+<footer class="footer">
+    <div class="footer-container">
+      <!-- Sobre o Projeto -->
+      <div class="footer-section sobre">
+        <img src="img/logo.png" alt="Logo Portal Pra Pets" class="footer-logo">
+        <p>Seu parceiro para encontrar os melhores serviços para seu pet, tudo em um só lugar!</p>
+      </div>
+  
+      <!-- Links Úteis -->
+      <div class="footer-section links">
+        <h3>Links Úteis</h3>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="banho-tosa.html">Banho e Tosa</a></li>
+          <li><a href="consultas.html">Agendar Consulta</a></li>
+          <li><a href="hospitais.html">Hospitais Próximos</a></li>
+          <li><a href="vacinas.html">Vacinas</a></li>
+          <li><a href="dicas.html">Dicas para Pets</a></li>
+        </ul>
+      </div>
+  
+      <!-- Sobre o Projeto -->
+      <div class="footer-section projeto">
+        <h3>Sobre o Projeto</h3>
+        <p>Pra Pet's é uma plataforma que conecta tutores de pets a serviços especializados.
+          Facilitamos a busca por banho e tosa, vacinas, consultas e hospitais veterinários próximos.</p>
+        </div>
+      </div>
+      <p id="rodape"> © 2025 Pra Pet's - Todos os direitos reservados</p>
+    </footer>
+
+  <script>
+    const form = document.getElementById("formConsulta");
+    const msgResultado = document.getElementById("msgResultado");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault(); // evitar envio padrão
+
+      // pegar valores do formulário
+      const nomePet = document.getElementById("nomePet").value.trim();
+      const nomeClinica = document.getElementById("nomeClinica").value.trim();
+      const dataInput = document.getElementById("data").value;
+      const horaInput = document.getElementById("hora").value;
+
+      // validar campos obrigatórios
+      if (!nomePet) {
+        alert("Por favor, digite o nome do pet.");
+        return;
+      }
+      if (!nomeClinica) {
+        alert("Por favor, digite o nome da clínica.");
+        return;
+      }
+      if (!dataInput) {
+        alert("Por favor, escolha a data da consulta.");
+        return;
+      }
+      if (!horaInput) {
+        alert("Por favor, escolha a hora da consulta.");
+        return;
+      }
+
+      // validar data e hora futura
+      const agora = new Date();
+      const dataHoraEscolhida = new Date(`${dataInput}T${horaInput}`);
+
+      if (dataHoraEscolhida < agora) {
+        alert("Por favor, escolha uma data e hora futuras para agendar a consulta.");
+        return;
+      }
+
+      // validar horário (7h às 20h)
+      const [hora, minuto] = horaInput.split(":").map(Number);
+      if (hora < 7 || hora > 20) {
+        alert("As consultas só são realizadas entre 07h e 20h.");
+        return;
+      }
+
+      // montar objeto com os dados da consulta
+      const consulta = {
+        nomePet,
+        nomeClinica,
+        data: dataInput,
+        hora: horaInput,
+      };
+
+      // salvar no localStorage (salva a lista de consultas)
+      let consultas = JSON.parse(localStorage.getItem("consultasAgendadas")) || [];
+      consultas.push(consulta);
+      localStorage.setItem("consultasAgendadas", JSON.stringify(consultas));
+
+      // mostrar mensagem organizada com os dados
+      msgResultado.innerHTML = `
+        <p>Consulta agendada com sucesso!</p>
+        <ul>
+          <li><strong>Nome do Pet:</strong> ${nomePet}</li>
+          <li><strong>Nome da Clínica:</strong> ${nomeClinica}</li>
+          <li><strong>Data:</strong> ${dataInput}</li>
+          <li><strong>Hora:</strong> ${horaInput}</li>
+        </ul>
+      `;
+      msgResultado.className = "resultado-sucesso";
+
+      // limpar formulário
+      form.reset();
+    });
+
+    function obterLocalizacao() {
+      const resultado = document.getElementById("resultado");
+      resultado.innerHTML = "<p class='loading'>Localizando você... ⏳</p>";
+
+      if (!navigator.geolocation) {
+        resultado.innerHTML =
+          "<p class='erro'>❌ Geolocalização não é suportada pelo seu navegador.</p>";
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (posicao) => {
+          const latitude = posicao.coords.latitude;
+          const longitude = posicao.coords.longitude;
+
+          const linkGoogleMaps = `https://www.google.com/maps/search/clínica+veterinária/@${latitude},${longitude},15z`;
+          resultado.innerHTML = `
+            <div class="resultado-sucesso">
+              <p>📍 Localização encontrada com sucesso!</p>
+              <a href="${linkGoogleMaps}" target="_blank" class="botao-maps">🔗 Ver clínicas próximas no Google Maps</a>
+            </div>
+          `;
+        },
+        (erro) => {
+          switch (erro.code) {
+            case erro.PERMISSION_DENIED:
+              resultado.innerHTML =
+                "<p class='erro'>🚫 Permissão negada para acessar a localização.</p>";
+              break;
+            case erro.POSITION_UNAVAILABLE:
+              resultado.innerHTML = "<p class='erro'>📡 Localização indisponível.</p>";
+              break;
+            case erro.TIMEOUT:
+              resultado.innerHTML =
+                "<p class='erro'>⌛ Tempo esgotado ao tentar obter localização.</p>";
+              break;
+            default:
+              resultado.innerHTML =
+                "<p class='erro'>⚠️ Erro desconhecido ao obter localização.</p>";
+          }
+        }
+      );
+    }
+  </script>
+</body>
+</html>

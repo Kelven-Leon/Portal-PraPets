@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vacinação Pet | Pra Pets</title>
+  <link rel="stylesheet" href="vacinas.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <header>
+    <h1>Vacinação do Pet</h1>
+  </header>
+
+  <main class="container">
+    <section class="descricao">
+      <p>Cuidar da saúde do seu pet é essencial! Agende vacinas e acompanhe o histórico aqui.</p>
+    </section>
+
+    <section class="recomendadas">
+      <h2>📋 Próximas Vacinas Recomendadas</h2>
+      <ul>
+        <li>💉 V8/V10 – Anualmente</li>
+        <li>💉 Raiva – Anualmente</li>
+        <li>💉 Giárdia – A cada 6 meses</li>
+      </ul>
+    </section>
+
+    <section class="agendamento">
+      <h2>📆 Agendar Vacina</h2>
+      <form id="form-agendamento">
+        <input type="text" id="nome" placeholder="Nome do Pet" required />
+        <input type="text" id="vacina" placeholder="Nome da Vacina" required />
+        <input type="date" id="data" required />
+        <input type="time" id="hora" required />
+        <button type="submit">Agendar</button>
+      </form>
+      <div class="feedback" id="mensagem-sucesso"></div>
+    </section>
+
+    <section class="historico">
+      <h2>📜 Histórico de Agendamentos</h2>
+      <ul id="lista-historico"></ul>
+      <button id="limpar-historico">🗑️ Limpar Histórico</button>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <!-- Sobre o Projeto -->
+      <div class="footer-section sobre">
+        <img src="img/logo.png" alt="Logo Portal Pra Pets" class="footer-logo">
+        <p>Seu parceiro para encontrar os melhores serviços para seu pet, tudo em um só lugar!</p>
+      </div>
+  
+      <!-- Links Úteis -->
+      <div class="footer-section links">
+        <h3>Links Úteis</h3>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="banho-tosa.html">Banho e Tosa</a></li>
+          <li><a href="consultas.html">Agendar Consulta</a></li>
+          <li><a href="hospitais.html">Hospitais Próximos</a></li>
+          <li><a href="vacinas.html">Vacinas</a></li>
+          <li><a href="dicas.html">Dicas para Pets</a></li>
+        </ul>
+      </div>
+  
+      <!-- Sobre o Projeto -->
+      <div class="footer-section projeto">
+        <h3>Sobre o Projeto</h3>
+        <p>Pra Pet's é uma plataforma que conecta tutores de pets a serviços especializados.
+          Facilitamos a busca por banho e tosa, vacinas, consultas e hospitais veterinários próximos.</p>
+        </div>
+      </div>
+      <p id="rodape"> © 2025 Pra Pet's - Todos os direitos reservados</p>
+    </footer>
+
+  <script>
+    const form = document.getElementById("form-agendamento");
+    const listaHistorico = document.getElementById("lista-historico");
+    const mensagem = document.getElementById("mensagem-sucesso");
+    const limparBtn = document.getElementById("limpar-historico");
+
+    // Carregar histórico salvo
+    document.addEventListener("DOMContentLoaded", () => {
+      const historicoSalvo = JSON.parse(localStorage.getItem("historicoVacinas")) || [];
+      historicoSalvo.forEach(item => adicionarHistorico(item));
+    });
+
+    // Adiciona item na lista e salva no localStorage
+    function adicionarHistorico(dados) {
+      const li = document.createElement("li");
+      li.textContent = `🐾 ${dados.nome} - ${dados.vacina} em ${dados.data} às ${dados.hora}`;
+      listaHistorico.appendChild(li);
+    }
+
+    // Submissão do formulário
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const nome = document.getElementById("nome").value;
+      const vacina = document.getElementById("vacina").value;
+      const data = document.getElementById("data").value;
+      const hora = document.getElementById("hora").value;
+
+      const novoAgendamento = { nome, vacina, data, hora };
+
+      adicionarHistorico(novoAgendamento);
+      const historicoAtual = JSON.parse(localStorage.getItem("historicoVacinas")) || [];
+      historicoAtual.push(novoAgendamento);
+      localStorage.setItem("historicoVacinas", JSON.stringify(historicoAtual));
+
+      mensagem.textContent = "✅ Agendamento salvo com sucesso!";
+      form.reset();
+
+      setTimeout(() => mensagem.textContent = "", 3000);
+    });
+
+    // Limpa o histórico
+    limparBtn.addEventListener("click", () => {
+      if (confirm("Deseja mesmo apagar todo o histórico?")) {
+        localStorage.removeItem("historicoVacinas");
+        listaHistorico.innerHTML = "";
+      }
+    });
+  </script>
+
+</body>
+</html>

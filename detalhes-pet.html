@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Detalhes do Pet</title>
+  <link rel="stylesheet" href="pets.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+    }
+
+    header {
+      background: #4CAF50;
+      color: white;
+      padding: 1em;
+      text-align: center;
+    }
+
+    header a {
+      color: #fff;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 0.5em;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2em auto;
+      padding: 1.5em;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    .pet-foto {
+      max-width: 200px;
+      border-radius: 8px;
+      margin-bottom: 1em;
+    }
+
+    form {
+      margin-top: 1em;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8em;
+    }
+
+    input, select, textarea, button {
+      padding: 0.6em;
+      font-size: 1em;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1em;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+
+    th, td {
+      padding: 0.6em;
+      text-align: left;
+    }
+
+    .mensagem {
+      color: green;
+      margin-top: 1em;
+      font-weight: bold;
+    }
+
+    .erro {
+      color: red;
+      margin-top: 1em;
+      font-weight: bold;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    .btn-excluir-pet {
+      margin-top: 1.5em;
+      background-color: #d9534f;
+    }
+
+    .btn-excluir-pet:hover {
+      background-color: #c9302c;
+    }
+
+    .btn-excluir-agendamento {
+      background-color: #e67e22;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 0.8em;
+    }
+
+    .btn-excluir-agendamento:hover {
+      background-color: #d35400;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Detalhes do Pet</h1>
+    <a href="pets.html">← Voltar para o cadastro</a>
+  </header>
+
+  <main class="container">
+    <article id="detalhesPet" aria-live="polite"></article>
+
+    <section class="editar-pet">
+      <h2>Editar Pet</h2>
+      <form id="formEditar">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" required />
+
+        <label for="especie">Espécie</label>
+        <input type="text" id="especie" required />
+
+        <label for="idade">Idade</label>
+        <input type="number" id="idade" min="0" required />
+
+        <label for="descricao">Descrição</label>
+        <textarea id="descricao" rows="3"></textarea>
+
+        <label for="foto">Foto</label>
+        <input type="file" id="foto" accept="image/*" />
+
+        <button type="submit">Salvar</button>
+        <div id="mensagemSucesso" class="mensagem" role="alert"></div>
+        <div id="mensagemErro" class="erro" role="alert"></div>
+      </form>
+
+      <button class="btn-excluir-pet" id="btnExcluirPet">Excluir Pet</button>
+    </section>
+
+    <section class="agendamento">
+      <h2>Agendamentos</h2>
+      <form id="formAgendamento">
+        <label for="tipo">Tipo</label>
+        <select id="tipo">
+          <option value="Vacina">Vacina</option>
+          <option value="Consulta">Consulta</option>
+          <option value="Banho">Banho</option>
+          <option value="Tosa">Tosa</option>
+        </select>
+
+        <label for="data">Data</label>
+        <input type="date" id="data" required />
+
+        <button type="submit">Agendar</button>
+      </form>
+
+      <table id="tabelaAgendamentos">
+        <thead>
+          <tr><th>Tipo</th><th>Data</th><th>Ações</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+  const urlParams = new URLSearchParams(window.location.search);
+  let nomePet = urlParams.get("nome");
+
+  let pets = JSON.parse(localStorage.getItem("pets")) || [];
+  let petIndex = pets.findIndex(p => p.nome.toLowerCase() === (nomePet ? nomePet.toLowerCase() : ""));
+  let pet = pets[petIndex];
+
+  const detalhesDiv = document.getElementById("detalhesPet");
+  const formEditar = document.getElementById("formEditar");
+  const formAgendamento = document.getElementById("formAgendamento");
+  const tabelaBody = document.querySelector("#tabelaAgendamentos tbody");
+  const msgSucesso = document.getElementById("mensagemSucesso");
+  const msgErro = document.getElementById("mensagemErro");
+  const btnExcluirPet = document.getElementById("btnExcluirPet");
+
+  function limparMensagens() {
+    msgSucesso.textContent = "";
+    msgErro.textContent = "";
+  }
+
+  function formatarData(dataStr) {
+    const data = new Date(dataStr);
+    return data.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" });
+  }
+
+  function capitalizarTexto(texto) {
+    return texto.replace(/\b\w/g, l => l.toUpperCase());
+  }
+
+  function renderDetalhes() {
+    if (!pet) {
+      detalhesDiv.innerHTML = "<p>Pet não encontrado.</p>";
+      formEditar.style.display = "none";
+      document.querySelector(".agendamento").style.display = "none";
+      btnExcluirPet.style.display = "none";
+      return;
+    }
+
+    detalhesDiv.innerHTML = `
+      ${pet.foto ? `<img src="${pet.foto}" alt="Foto do pet ${pet.nome}" class="pet-foto">` : ''}
+      <h2>${pet.nome}</h2>
+      <p><strong>Espécie:</strong> ${pet.especie}</p>
+      <p><strong>Idade:</strong> ${pet.idade} anos</p>
+      ${pet.descricao ? `<p><strong>Descrição:</strong> ${pet.descricao}</p>` : ''}
+      ${pet.ultimaEdicao ? `<p><em>Última edição: ${formatarData(pet.ultimaEdicao)}</em></p>` : ''}
+    `;
+
+    formEditar.nome.value = pet.nome;
+    formEditar.especie.value = pet.especie;
+    formEditar.idade.value = pet.idade;
+    formEditar.descricao.value = pet.descricao || "";
+
+    formEditar.style.display = "flex";
+    document.querySelector(".agendamento").style.display = "block";
+    btnExcluirPet.style.display = "inline-block";
+  }
+
+  function renderAgendamentos() {
+    tabelaBody.innerHTML = "";
+
+    if (!pet.agendamentos?.length) {
+      tabelaBody.innerHTML = `<tr><td colspan="3">Nenhum agendamento ainda.</td></tr>`;
+      return;
+    }
+
+    const hoje = new Date();
+    hoje.setHours(0,0,0,0);
+
+    const agendamentosFuturos = [];
+    const agendamentosPassados = [];
+
+    pet.agendamentos.forEach((ag, index) => {
+      const dataAg = new Date(ag.data);
+      dataAg.setHours(0,0,0,0);
+
+      if (dataAg >= hoje) {
+        agendamentosFuturos.push({...ag, index});
+      } else {
+        agendamentosPassados.push({...ag, index});
+      }
+    });
+
+    agendamentosFuturos.sort((a, b) => new Date(a.data) - new Date(b.data));
+    agendamentosPassados.sort((a, b) => new Date(b.data) - new Date(a.data));
+
+    if (agendamentosFuturos.length) {
+      const header = document.createElement("tr");
+      header.innerHTML = `<th colspan="3">Próximos Agendamentos</th>`;
+      tabelaBody.appendChild(header);
+
+      agendamentosFuturos.forEach(({ tipo, data, index }) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${tipo}</td>
+          <td>${formatarData(data)}</td>
+          <td><button class="btn-excluir-agendamento" data-index="${index}" aria-label="Excluir agendamento ${tipo} em ${formatarData(data)}">Excluir</button></td>
+        `;
+        tabelaBody.appendChild(row);
+      });
+    }
+
+    if (agendamentosPassados.length) {
+      const header = document.createElement("tr");
+      header.innerHTML = `<th colspan="3">Histórico de Agendamentos</th>`;
+      tabelaBody.appendChild(header);
+
+      agendamentosPassados.forEach(({ tipo, data, index }) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${tipo}</td>
+          <td>${formatarData(data)}</td>
+          <td><button class="btn-excluir-agendamento" data-index="${index}" aria-label="Excluir agendamento ${tipo} em ${formatarData(data)}">Excluir</button></td>
+        `;
+        tabelaBody.appendChild(row);
+      });
+    }
+  }
+
+  function atualizarPet(novoNome, especie, idade, descricao, foto = pet.foto) {
+    novoNome = capitalizarTexto(novoNome);
+    especie = capitalizarTexto(especie);
+
+    pet = {
+      ...pet,
+      nome: novoNome,
+      especie,
+      idade,
+      descricao,
+      foto,
+      ultimaEdicao: new Date().toISOString()
+    };
+    pets[petIndex] = pet;
+    localStorage.setItem("pets", JSON.stringify(pets));
+    msgSucesso.textContent = "Pet atualizado com sucesso!";
+    msgErro.textContent = "";
+
+    // Atualiza o nome na URL para manter a navegação correta
+    const novaURL = new URL(window.location);
+    novaURL.searchParams.set("nome", novoNome);
+    window.history.replaceState(null, '', novaURL);
+
+    // Atualiza a variável nomePet e petIndex para refletir a mudança
+    nomePet = novoNome;
+    petIndex = pets.findIndex(p => p.nome.toLowerCase() === nomePet.toLowerCase());
+
+    renderDetalhes();
+    limparMensagensDepois();
+  }
+
+  function limparMensagensDepois() {
+    setTimeout(() => {
+      limparMensagens();
+    }, 4000);
+  }
+
+  formEditar.addEventListener("submit", e => {
+    e.preventDefault();
+    limparMensagens();
+
+    const novoNome = formEditar.nome.value.trim();
+    const especie = formEditar.especie.value.trim();
+    const idade = parseInt(formEditar.idade.value);
+    const descricao = formEditar.descricao.value.trim();
+    const file = formEditar.foto.files[0];
+
+    if (!novoNome || !especie || isNaN(idade)) {
+      msgErro.textContent = "Preencha todos os campos obrigatórios corretamente!";
+      return;
+    }
+
+    // Verifica se o novo nome já existe em outro pet
+    if (novoNome.toLowerCase() !== pet.nome.toLowerCase() && pets.some(p => p.nome.toLowerCase() === novoNome.toLowerCase())) {
+      msgErro.textContent = "Já existe um pet com esse nome. Escolha outro.";
+      return;
+    }
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        atualizarPet(novoNome, especie, idade, descricao, event.target.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      atualizarPet(novoNome, especie, idade, descricao);
+    }
+  });
+
+  formAgendamento.addEventListener("submit", e => {
+    e.preventDefault();
+    limparMensagens();
+
+    const tipo = formAgendamento.tipo.value;
+    const data = formAgendamento.data.value;
+
+    if (!data) {
+      msgErro.textContent = "Por favor, selecione uma data.";
+      return;
+    }
+
+    const dataSelecionada = new Date(data);
+    const hoje = new Date();
+    hoje.setHours(0,0,0,0);
+
+    if (dataSelecionada < hoje) {
+      msgErro.textContent = "A data do agendamento não pode ser no passado.";
+      return;
+    }
+
+    pet.agendamentos = pet.agendamentos || [];
+    pet.agendamentos.push({ tipo, data });
+
+    pets[petIndex] = pet;
+    localStorage.setItem("pets", JSON.stringify(pets));
+    msgSucesso.textContent = "Agendamento realizado com sucesso!";
+    msgErro.textContent = "";
+
+    renderAgendamentos();
+    limparMensagensDepois();
+    formAgendamento.reset();
+  });
+
+  tabelaBody.addEventListener("click", e => {
+    if (e.target.classList.contains("btn-excluir-agendamento")) {
+      const index = parseInt(e.target.dataset.index);
+      if (!isNaN(index)) {
+        pet.agendamentos.splice(index, 1);
+        pets[petIndex] = pet;
+        localStorage.setItem("pets", JSON.stringify(pets));
+        renderAgendamentos();
+        msgSucesso.textContent = "Agendamento removido.";
+        limparMensagensDepois();
+      }
+    }
+  });
+
+  btnExcluirPet.addEventListener("click", () => {
+    if (confirm(`Tem certeza que deseja excluir o pet "${pet.nome}"? Esta ação não pode ser desfeita.`)) {
+      pets.splice(petIndex, 1);
+      localStorage.setItem("pets", JSON.stringify(pets));
+      window.location.href = "pets.html";
+    }
+  });
+
+  renderDetalhes();
+  renderAgendamentos();
+  limparMensagens();
+  </script>
+</body>
+</html>

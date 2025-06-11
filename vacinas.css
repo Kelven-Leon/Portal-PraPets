@@ -1,0 +1,165 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #f4fdf7;
+  color: #333;
+}
+
+header {
+  background-color: #2e7d32;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 30px;
+}
+
+.descricao p {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+}
+
+.recomendadas ul {
+  margin-top: 10px;
+  padding-left: 20px;
+  color: #2e7d32;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+form input, form button {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+form button {
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #256428;
+}
+
+.feedback {
+  margin-top: 10px;
+  color: green;
+  font-weight: bold;
+}
+
+.historico ul {
+  list-style: none;
+  margin-top: 10px;
+}
+
+.historico li {
+  background-color: #e8f5e9;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-left: 4px solid #2e7d32;
+  border-radius: 4px;
+}
+
+#limpar-historico {
+  background-color: #2e7d32c0;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#limpar-historico:hover {
+  background-color: #2e7d32;
+}
+
+/* Rodapé bonito e organizado */
+.footer {
+  background: #2d8039;
+  color: #f1f1f1;
+  padding: 20px 10px;
+  border-top: 2px solid #a4d4a0;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
+  gap: 20px;
+}
+
+.footer-section {
+  flex: 1 1 250px;
+  min-width: 250px;
+  font-size: 1.1em;
+}
+
+.footer-logo {
+  width: 60px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  margin-bottom: 4px;
+}
+
+.footer-section h3 {
+  margin-bottom: 20px;
+  font-size: 1.1em;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  font-size: 1.1em;
+}
+
+.footer-section ul li {
+  margin-bottom: 5px;
+  font-size: 1.1em;
+}
+
+.footer-section ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.footer-section ul li a:hover {
+  text-decoration: underline;
+  
+}
+
+.copyright {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: white;
+}
+
+#rodape{
+  text-align: center;
+  color: rgba(255, 255, 255, 0.322);
+}
